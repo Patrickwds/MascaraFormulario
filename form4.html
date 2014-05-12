@@ -1,0 +1,41 @@
+<html>
+<head>
+<script type="text/javascript">
+/* Máscaras ER */
+function mascara(o,f){
+        v_obj=o;
+        v_fun=f;
+        setTimeout("execmascara()",1);
+}
+function execmascara(){
+        v_obj.value=v_fun(v_obj.value);
+}
+function id( el ){
+        return document.getElementById( el );
+}
+function mnum(v){
+    v=v.replace(/\D/g,"");//Remove tudo o que não é dígito
+    return v;
+}
+window.onload = function()
+{
+        id('hash').onkeypress = function(){
+                mascara( this, mnum );
+        }
+        id('hash').onblur = function(){
+                var dig = this.value.length;
+
+                while( dig<3 ){
+                        this.value = '0'+this.value;
+                        dig++;
+                }
+        }
+}
+</script>
+</head>
+<body>
+        <form action="" method="post">
+                <input type="text" name="hash" id="hash" maxlength="3" />
+        </form>
+</body>
+</html>

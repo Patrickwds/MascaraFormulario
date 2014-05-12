@@ -1,0 +1,40 @@
+<html>
+<head>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery.maskedinput.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+        var cep = $("input[name='cep']");
+        var rg = $("input[name='rg']");
+        var data = $("input[name='data']");
+ 
+        $( cep ).mask('99999-999');
+        $( rg ).mask('99.999.999-9');
+        $( data ).mask('99/99/9999');
+ 
+        $("input[name='cep']").keyup(function(){
+                next( $(this), rg );
+        });
+        $("input[name='rg']").keyup(function(){
+                next( $(this), data );
+        });
+});
+function next( el, next )
+{
+        var val = $( el ).val();
+        var filtrado = val.replace(/[^a-zA-Z0-9]/g, '');// ER para remover tudo oque não for nem letra e nem número    
+        var mask = val.match(/[-.]/g);// ER para saber quantos caracteres da máscara fazem parte da string final
+ 
+        if( filtrado.length == $( el ).attr('maxLength')-mask.length )
+                $( next ).focus();
+}
+</script>
+</head>
+<body>
+        CEP: <input type="text" name="cep" size="10" maxlength="9" value="" />
+        <br />
+        RG: <input type="text" name="rg" size="14" maxlength="12" value="" />
+        <br />
+        Data: <input type="text" name="data" size="14" maxlength="10" value="" />
+</body>
+</html>
